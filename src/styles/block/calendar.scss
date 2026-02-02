@@ -1,0 +1,41 @@
+@use "sass:list";
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 706px;
+  gap: 1px;
+  margin: 0 auto;
+
+  &__day {
+    height: 100px;
+    width: 100px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+    border: 1px solid #000;
+    box-sizing: border-box;
+
+    @for $i from 1 through 31 {
+      &:nth-child(#{$i})::before {
+        content: '#{$i}';
+        font-family: Arial, sans-serif;
+        font-size: 30px;
+      }
+    }
+  }
+
+  $days: mon, tue, wed, thu, fri, sat, sun;
+
+  @each $day in $days {
+    $i: list.index($days, $day);
+
+    &--#{$day} {
+      .calendar__day:first-child {
+        margin-left: ($i - 1) * 101px;
+      }
+    }
+  }
+}
